@@ -90,3 +90,128 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* =========================================================================
+   Nextjsshop Pixel Dissolve Button (button01)
+   ========================================================================= */
+.button01 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  isolation: isolate;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Primary Variant (View Work: base #F4F4F4, fills with #101010) */
+.button01--primary {
+  background-color: #F4F4F4;
+  color: #101010;
+  border: 1px solid transparent;
+}
+
+.button01--primary .button01_bg-mid,
+.button01--primary .button01_bg-pixel {
+  background-color: #101010;
+}
+
+.button01--primary:hover {
+  color: #F4F4F4;
+}
+
+/* Secondary Variant (Get in Touch: base #171717, border subtle, fills with #F4F4F4) */
+.button01--secondary {
+  background-color: #171717;
+  color: #F4F4F4;
+  border: 1px solid rgba(244, 244, 244, 0.14);
+}
+
+.button01--secondary .button01_bg-mid,
+.button01--secondary .button01_bg-pixel {
+  background-color: #F4F4F4;
+}
+
+.button01--secondary:hover {
+  color: #101010;
+  border-color: rgba(244, 244, 244, 0.4);
+}
+
+/* Background Wrapper */
+.button01_bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button01:hover .button01_bg {
+  transform: translateX(0);
+}
+
+/* Solid Middle Fill */
+.button01_bg-mid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 22px;
+}
+
+/* Trailing Pixel Grid on Right Edge */
+.button01_bg-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+/* Trailing Pixel Overlay Extended Further Right */
+.button01_bg-right-overlay {
+  position: absolute;
+  top: 0;
+  right: -12px;
+  bottom: 0;
+  width: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+/* Individual Pixels with CSS Variable Stagger Delay */
+.button01_bg-pixel {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  transition-delay: calc(var(--index, 0) * 30ms);
+}
+
+.button01:hover .button01_bg-pixel {
+  opacity: 1;
+}
+
+/* Inner Text & Icon Layer */
+.button01_inner {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button01_text {
+  display: inline-flex;
+  align-items: center;
+}
+

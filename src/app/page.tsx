@@ -1,18 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, Copy, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { WovenCanvas } from "@/components/ui/woven-light-hero";
 import { RevealElement } from "@/components/RevealElement";
-import { RevealText } from "@/components/RevealText";
 import { VisualArtifact } from "@/components/VisualArtifact";
+import { NextjsShopButton } from "@/components/ui/nextjsshop-button";
+import { TextRoll } from "@/components/ui/text-roll";
+
+const loopingLines = [
+  "INTELLIGENCE, BUILT",
+  "INTELLIGENCE, IN MOTION.",
+  "IMAGINE. THEN BUILD.",
+  "FROM THOUGHT TO THING.",
+];
 
 export default function HomePage() {
   const [copied, setCopied] = useState(false);
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const featuredProjects = projects.slice(0, 3);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentLineIndex((prev) => (prev + 1) % loopingLines.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText("contact@rihanmr.dev");
@@ -64,13 +80,23 @@ export default function HomePage() {
           animate="visible"
           className="relative z-10 flex flex-col justify-center max-w-5xl my-auto py-16 sm:py-24"
         >
-          <div className="flex flex-col">
-            <RevealText
-              lines={["I BUILD", "INTELLIGENT", "DIGITAL EXPERIENCES."]}
-              as="h1"
-              delay={0.15}
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-editorial text-[#F4F4F4] uppercase leading-[0.92] select-none"
-            />
+          <div className="flex flex-col gap-3 sm:gap-4">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-[#F4F4F4] uppercase leading-[0.95] select-none">
+              HI, IAM MOHAMMAD RIHAN
+            </h1>
+
+            <div className="min-h-[1.4em] flex items-center overflow-hidden">
+              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#F4F4F4]/80 uppercase leading-none font-mono">
+                <TextRoll
+                  key={currentLineIndex}
+                  duration={0.4}
+                  getEnterDelay={(i) => i * 0.03}
+                  getExitDelay={(i) => i * 0.03 + 0.1}
+                >
+                  {loopingLines[currentLineIndex]}
+                </TextRoll>
+              </span>
+            </div>
           </div>
 
           <motion.p
@@ -85,20 +111,22 @@ export default function HomePage() {
             variants={heroItemVariants}
             className="flex flex-wrap items-center gap-4 sm:gap-6 mt-10"
           >
-            <Link
+            <NextjsShopButton
               href="/work"
-              className="px-8 py-4 bg-[#F4F4F4] text-[#101010] font-mono text-xs uppercase tracking-widest font-medium hover:bg-[#E2E2E2] transition-colors inline-flex items-center gap-2.5"
+              variant="primary"
+              className="px-8 py-4 font-mono text-xs uppercase tracking-widest font-medium"
+              icon={<ArrowRight className="w-3.5 h-3.5" />}
             >
-              <span>View Work</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <Link
+              View Work
+            </NextjsShopButton>
+            <NextjsShopButton
               href="/contact"
-              className="px-8 py-4 bg-[#171717] text-[#F4F4F4] border border-white/[0.12] font-mono text-xs uppercase tracking-widest font-medium hover:bg-[#222222] hover:border-white/[0.25] transition-colors inline-flex items-center gap-2.5"
+              variant="secondary"
+              className="px-8 py-4 font-mono text-xs uppercase tracking-widest font-medium"
+              icon={<ArrowUpRight className="w-3.5 h-3.5" />}
             >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+              Get in Touch
+            </NextjsShopButton>
           </motion.div>
         </motion.div>
 
