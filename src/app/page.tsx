@@ -136,11 +136,6 @@ export default function HomePage() {
             <span>Scroll to Explore</span>
             <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
           </div>
-          <div className="hidden sm:flex items-center gap-6">
-            <span>Archive Vol. 03</span>
-            <span>•</span>
-            <span>Precision Engineering</span>
-          </div>
         </div>
       </section>
 
@@ -160,9 +155,6 @@ export default function HomePage() {
                   A FEW THINGS I&apos;VE BUILT.
                 </h2>
               </div>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#F4F4F4]/40">
-                INDEX // 2024—2026
-              </span>
             </div>
           </RevealElement>
 
