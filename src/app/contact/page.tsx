@@ -1,110 +1,90 @@
-import { Metadata } from "next";
-import { ContactForm } from "@/components/ContactForm";
-import { RevealText } from "@/components/RevealText";
+"use client";
+
+import React from "react";
+import { RandomLetterSwap } from "@/components/ui/random-letter-swap";
+import { playClickSound } from "@/lib/sound";
 import { RevealElement } from "@/components/RevealElement";
-import { ArrowUpRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "CONTACT — Mohammad Rihan MR",
-  description: "Get in touch with Mohammad Rihan MR for engineering projects, collaborations, or inquiries.",
-};
-
-export default function ContactPage() {
-  const directChannels = [
-    {
-      label: "EMAIL",
-      value: "contact@rihanmr.dev",
-      href: "mailto:contact@rihanmr.dev",
-    },
-    {
-      label: "GITHUB",
-      value: "github.com/rihanmr",
-      href: "https://github.com/rihanmr",
-    },
-    {
-      label: "LINKEDIN",
-      value: "linkedin.com/in/rihanmr",
-      href: "https://linkedin.com/in/rihanmr",
-    },
-    {
-      label: "INSTAGRAM",
-      value: "instagram.com/rihanmr",
-      href: "https://instagram.com",
-    },
-  ];
-
+export default function InquirePage() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 pt-32 sm:pt-40 pb-24">
-      {/* Hero */}
-      <div className="max-w-5xl mb-16 sm:mb-24">
-        <div className="text-xs font-mono uppercase tracking-widest text-[#F4F4F4]/50 mb-4">
-          COMMUNICATION DISPATCH
-        </div>
+    <main className="relative w-full min-h-[100svh] flex flex-col justify-between px-6 sm:px-12 md:px-16 pt-28 pb-10 bg-transparent text-[#F4F4F4] select-none">
+      {/* Top spacer so center is balanced */}
+      <div className="w-full" />
 
-        <RevealText
-          lines={["LET'S BUILD", "SOMETHING", "USEFUL."]}
-          as="h1"
-          className="text-5xl sm:text-7xl md:text-8xl font-light tracking-editorial text-[#F4F4F4] leading-[0.95]"
-        />
+      {/* Center Hero Dispatch */}
+      <div className="w-full max-w-3xl mx-auto text-center flex flex-col items-center justify-center my-auto py-12">
+        <RevealElement delay={0.1}>
+          <p className="text-xl sm:text-2xl md:text-3xl font-light text-[#F4F4F4]/90 leading-relaxed tracking-tight max-w-2xl mx-auto mb-12 sm:mb-16">
+            Send a brief note about what you are working on and what role you need filled. Web development, intelligent AI/ML systems, or product design.
+          </p>
+        </RevealElement>
 
         <RevealElement delay={0.2}>
-          <p className="mt-8 text-xl sm:text-2xl text-[#F4F4F4]/75 font-light leading-relaxed max-w-2xl">
-            Have an idea, collaboration or project in mind?
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 font-mono text-xs sm:text-sm uppercase tracking-widest">
+            <a
+              href="mailto:rihanatwork26@gmail.com"
+              onClick={playClickSound}
+              className="text-[#F4F4F4]/75 hover:text-white transition-colors"
+            >
+              <RandomLetterSwap label="EMAIL" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/mohammad-rihan-m-r"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={playClickSound}
+              className="text-[#F4F4F4]/75 hover:text-white transition-colors"
+            >
+              <RandomLetterSwap label="LINKEDIN" />
+            </a>
+            <a
+              href="https://github.com/rihan-mdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={playClickSound}
+              className="text-[#F4F4F4]/75 hover:text-white transition-colors"
+            >
+              <RandomLetterSwap label="GITHUB" />
+            </a>
+            <a
+              href="https://www.instagram.com/innix.exe?obrf=Y2JrcDBpaXZ2dWJu&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={playClickSound}
+              className="text-[#F4F4F4]/75 hover:text-white transition-colors"
+            >
+              <RandomLetterSwap label="INSTAGRAM" />
+            </a>
+          </div>
         </RevealElement>
       </div>
 
-      {/* Main Grid: Direct Channels & Minimal Form */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 border-t border-white/[0.08] pt-14">
-        {/* LEFT: Direct Links */}
-        <div className="lg:col-span-5 space-y-12">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-[#F4F4F4]/40 block mb-4">
-              DIRECT CHANNELS
-            </span>
-            <ul className="space-y-6">
-              {directChannels.map((channel) => (
-                <li key={channel.label} className="border-b border-white/[0.06] pb-4">
-                  <a
-                    href={channel.href}
-                    target={channel.label !== "EMAIL" ? "_blank" : undefined}
-                    rel={channel.label !== "EMAIL" ? "noopener noreferrer" : undefined}
-                    className="group flex items-baseline justify-between text-[#F4F4F4] hover:text-[#F4F4F4]/80 transition-colors"
-                  >
-                    <div>
-                      <span className="block text-xl sm:text-2xl font-light tracking-wide group-hover:translate-x-1 transition-transform">
-                        {channel.label}
-                      </span>
-                      <span className="block text-xs font-mono text-[#F4F4F4]/40 mt-1">
-                        {channel.value}
-                      </span>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-[#F4F4F4]/40 group-hover:text-[#F4F4F4] transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-6 border border-white/[0.08] bg-[#121212] space-y-2 text-xs font-mono text-[#F4F4F4]/60">
-            <div className="text-[#F4F4F4]/90 font-medium">LOCATION &amp; TIMEZONE</div>
-            <div>Karnataka, India (IST / UTC+5:30)</div>
-            <div className="text-[10px] text-[#F4F4F4]/40 pt-2">
-              Typically responding within 24 hours.
-            </div>
-          </div>
+      {/* Bottom Ledger Credits Bar (Exact match to reference) */}
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-end pt-8 border-t border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-[#F4F4F4]/40">
+        {/* Left: RIHAN MR © 2026 / ALL RIGHTS RESERVED */}
+        <div className="flex flex-col gap-1">
+          <span className="text-[#F4F4F4] font-medium">RIHAN MR © 2026</span>
+          <span>ALL RIGHTS RESERVED</span>
         </div>
 
-        {/* RIGHT: Minimal Contact Form */}
-        <div className="lg:col-span-7">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#F4F4F4]/40 block mb-6">
-            TRANSMISSION FORM
-          </span>
-          <div className="p-8 sm:p-12 border border-white/[0.08] bg-[#121212]">
-            <ContactForm />
-          </div>
+        {/* Center: SAY HELLO / rihanatwork26@gmail.com */}
+        <div className="flex flex-col gap-1 md:text-center">
+          <span>SAY HELLO</span>
+          <a
+            href="mailto:rihanatwork26@gmail.com"
+            onClick={playClickSound}
+            className="text-[#F4F4F4] hover:text-white transition-colors lowercase font-mono tracking-wider"
+          >
+            rihanatwork26@gmail.com
+          </a>
+        </div>
+
+        {/* Right: SITE BY / MUHAMMED RIHAN MR */}
+        <div className="flex flex-col gap-1 md:text-right">
+          <span>SITE BY</span>
+          <span className="text-[#F4F4F4] font-medium">MUHAMMED RIHAN MR</span>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

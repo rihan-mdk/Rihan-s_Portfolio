@@ -1,27 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Logo } from "./Logo";
 import { RandomLetterSwap } from "@/components/ui/random-letter-swap";
+import { playClickSound } from "@/lib/sound";
+import { triggerBlobTransition } from "@/components/LiquidBlobTransition";
 
-const navLinks = [
+const menuItems = [
+  { label: "Index", href: "/#hero" },
   { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Lab", href: "/lab" },
   { label: "Skills", href: "/skills" },
-  { label: "Journey", href: "/journey" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/about" },
+  { label: "Certificates", href: "/certificates" },
+  { label: "Inquire", href: "/inquire" },
 ];
 
 export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
 
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  // Handle scroll detection
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -31,185 +38,183 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menu on click outside
   useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
     };
-  }, [mobileMenuOpen]);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   return (
     <>
+      {/* =========================================================================
+          TOP MINIMAL HEADER (Menu | Portfolio | Connect)
+      ========================================================================= */}
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-[#101010]/90 backdrop-blur-md border-b border-white/[0.08] py-3.5"
-            : "bg-transparent border-b border-transparent py-5"
+            ? "bg-[#101010]/70 backdrop-blur-md border-b border-white/[0.06] py-4"
+            : "bg-transparent border-b border-transparent py-6 sm:py-8"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 flex items-center justify-between">
-          {/* LEFT: BRAND MONOGRAM & IDENTITY */}
-          <Link
-            href="/"
-            className="group flex items-center gap-3.5 text-xs font-mono tracking-widest text-[#F4F4F4] focus:outline-hidden"
-          >
-            <div className="h-8 w-8 rounded-xs overflow-hidden border border-white/[0.15] bg-[#141414] flex items-center justify-center shrink-0">
-              <Logo className="h-full w-full object-cover" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono text-[11px] uppercase tracking-widest text-[#F4F4F4] font-semibold leading-tight transition-colors duration-200 group-hover:text-white">
-                MOHAMMAD RIHAN MR
-              </span>
-              <span className="font-mono text-[10px] uppercase text-[#F4F4F4]/50 tracking-wider leading-tight transition-colors duration-200 group-hover:text-[#F4F4F4]/80">
-                AI/ML • CREATIVE TECH
-              </span>
-            </div>
-          </Link>
-
-          {/* DESKTOP NAV: RANDOM LETTER SWAP */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="relative py-1 group/nav"
-                >
-                  <div
-                    className={`inline-block uppercase transition-colors duration-200 ${
-                      isActive
-                        ? "text-white font-medium"
-                        : "text-[#F4F4F4]/60 group-hover/nav:text-white"
-                    }`}
-                  >
-                    <RandomLetterSwap
-                      label={link.label}
-                      staggerDuration={0.025}
-                      transition={{ duration: 0.6, type: "spring" }}
-                    />
-                  </div>
-
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute -bottom-1 left-0 right-0 h-px bg-[#F4F4F4]"
-                      transition={{ duration: 0.25 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* RESUME PILL BUTTON */}
-          <div className="hidden sm:flex items-center gap-4">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 border border-white/[0.12] bg-[#171717] hover:bg-[#202020] hover:border-white/[0.3] text-[#F4F4F4] hover:text-white text-xs font-mono uppercase tracking-widest transition-colors duration-200 group/resume"
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 flex items-center justify-between">
+          {/* LEFT: MENU TEXT LINK */}
+          <div className="flex-1 flex justify-start">
+            <button
+              onClick={() => {
+                playClickSound();
+                setIsMenuOpen((prev) => !prev);
+              }}
+              className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-[#F4F4F4]/80 hover:text-white transition-colors cursor-pointer select-none focus:outline-hidden"
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={isMenuOpen}
             >
-              <RandomLetterSwap
-                label="Resume"
-                staggerDuration={0.025}
-                transition={{ duration: 0.6, type: "spring" }}
-              />
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#F4F4F4]/70 transition-transform duration-200 group-hover/resume:translate-x-0.5" />
-            </a>
+              <span className="relative">
+                MENU
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
+              </span>
+            </button>
           </div>
 
-          {/* MOBILE MENU TOGGLE */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
-              className="p-2 text-[#F4F4F4] hover:opacity-70 transition-opacity focus:outline-hidden"
+          {/* MIDDLE: RIHAN MR WITH LETTER-SWAP ANIMATION */}
+          <div className="flex-1 flex justify-center text-center">
+            <Link
+              href="/"
+              onClick={() => {
+                playClickSound();
+                triggerBlobTransition();
+              }}
+              className="inline-flex items-center font-mono text-xs uppercase tracking-widest text-[#F4F4F4] hover:text-white transition-colors select-none focus:outline-hidden"
             >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
+              <RandomLetterSwap
+                label="RIHAN MR"
+                staggerDuration={0.025}
+                transition={{ duration: 0.6, type: "spring", stiffness: 350, damping: 25 }}
+              />
+            </Link>
+          </div>
+
+          {/* RIGHT: INQUIRE LINK */}
+          <div className="flex-1 flex justify-end">
+            <Link
+              href="/inquire"
+              onClick={() => {
+                playClickSound();
+                triggerBlobTransition();
+              }}
+              className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-[#F4F4F4]/80 hover:text-white transition-colors select-none focus:outline-hidden"
+            >
+              <RandomLetterSwap
+                label="INQUIRE"
+                staggerDuration={0.025}
+                transition={{ duration: 0.6, type: "spring", stiffness: 350, damping: 25 }}
+              />
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* MOBILE FULLSCREEN OVERLAY */}
+      {/* =========================================================================
+          EDITORIAL WHITE FLOATING MENU CARD (Reference Image Layout)
+      ========================================================================= */}
       <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
-            className="fixed inset-0 z-30 bg-[#101010] flex flex-col justify-between px-8 py-24 md:hidden"
-          >
-            <nav className="flex flex-col space-y-6">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#F4F4F4]/40">
-                NAVIGATION
-              </span>
-              {navLinks.map((link, idx) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="group/mobile"
-                  >
-                    <div
-                      className={`text-3xl font-light tracking-editorial transition-colors duration-200 flex items-center ${
+        {isMenuOpen && (
+          <>
+            {/* Ambient subtle backdrop dismissal layer */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/35 backdrop-blur-[2px]"
+              aria-hidden="true"
+            />
+
+            {/* The Crisp White Editorial Floating Card */}
+            <motion.div
+              ref={menuRef}
+              initial={{ opacity: 0, scale: 0.94, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: -8 }}
+              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] as const }}
+              className="fixed top-5 left-5 sm:top-8 sm:left-10 z-50 w-[240px] sm:w-[270px] min-h-[340px] sm:min-h-[380px] bg-white text-black rounded-lg sm:rounded-xl p-6 sm:p-8 flex flex-col justify-between shadow-[0_24px_50px_rgba(0,0,0,0.45)] select-none"
+              role="dialog"
+              aria-modal="true"
+            >
+              {/* TOP: CLOSE TEXT ACTION */}
+              <div className="w-full flex justify-start">
+                <button
+                  onClick={() => {
+                    playClickSound();
+                    setIsMenuOpen(false);
+                  }}
+                  className="font-mono text-xs uppercase tracking-widest text-black/75 hover:text-black font-semibold transition-colors cursor-pointer select-none focus:outline-hidden"
+                  aria-label="Close menu"
+                >
+                  CLOSE
+                </button>
+              </div>
+
+              {/* BOTTOM: STACKED EDITORIAL LINKS WITH REDUCED FONT & LETTER SWITCHING */}
+              <nav className="flex flex-col items-end gap-2 sm:gap-2.5 text-right">
+                {menuItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => {
+                        playClickSound();
+                        setIsMenuOpen(false);
+                        triggerBlobTransition();
+                        if (item.label === "Index") {
+                          const hero = document.getElementById("hero");
+                          if (hero) {
+                            hero.scrollIntoView({ behavior: "smooth" });
+                          } else {
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }
+                        }
+                      }}
+                      className={`group inline-flex items-center py-0.5 text-base sm:text-lg font-medium tracking-tight transition-all duration-200 ${
                         isActive
-                          ? "text-white"
-                          : "text-[#F4F4F4]/60 group-hover/mobile:text-white"
+                          ? "text-black font-semibold underline underline-offset-4 decoration-black/40"
+                          : "text-black/80 hover:text-black hover:translate-x-[-2px]"
                       }`}
                     >
-                      <span className="text-xs font-mono text-[#F4F4F4]/40 mr-4">
-                        0{idx + 1}
-                      </span>
                       <RandomLetterSwap
-                        label={link.label}
-                        staggerDuration={0.025}
-                        transition={{ duration: 0.6, type: "spring" }}
+                        label={item.label}
+                        staggerDuration={0.02}
+                        transition={{ duration: 0.5, type: "spring", stiffness: 350, damping: 25 }}
                       />
-                    </div>
-                  </Link>
-                );
-              })}
-
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-2xl font-light tracking-editorial text-[#F4F4F4]/70 hover:text-white flex items-center gap-2 pt-2 transition-colors duration-200 group/mobresume"
-              >
-                <RandomLetterSwap
-                  label="RESUME"
-                  staggerDuration={0.025}
-                  transition={{ duration: 0.6, type: "spring" }}
-                />
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/mobresume:translate-x-0.5" />
-              </a>
-            </nav>
-
-            <div className="border-t border-white/[0.08] pt-6 flex flex-col gap-2 text-xs font-mono text-[#F4F4F4]/40">
-              <span>MOHAMMAD RIHAN MR</span>
-              <span>AI / ML • CREATIVE TECHNOLOGY</span>
-            </div>
-          </motion.div>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
   );
 }
+
+export default Navbar;

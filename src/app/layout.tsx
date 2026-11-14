@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import { LiquidMetalBackground } from "@/components/LiquidMetalBackground";
+import { LiquidBlobTransition } from "@/components/LiquidBlobTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,10 +65,11 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#101010] text-[#F4F4F4]">
+      <body className="min-h-full flex flex-col bg-transparent text-[#F4F4F4] relative selection:bg-white/20 selection:text-white">
+        <LiquidBlobTransition />
+        <LiquidMetalBackground />
         <Navbar />
-        <div className="flex-1 w-full flex flex-col">{children}</div>
-        <Footer />
+        <div className="flex-1 w-full flex flex-col relative z-10">{children}</div>
       </body>
     </html>
   );

@@ -18,13 +18,13 @@
 }
 
 :root {
-  --bg-color: #101010;
+  --bg-color: #0c0d11;
   --text-color: #F4F4F4;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #101010;
+  background-color: #0c0d11;
   color: #F4F4F4;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -32,7 +32,7 @@ html {
 }
 
 body {
-  background-color: #101010;
+  background-color: transparent;
   color: #F4F4F4;
   min-height: 100vh;
   overflow-x: hidden;

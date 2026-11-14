@@ -14,9 +14,10 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
+  const base = projects.map((project) => ({
     slug: project.slug,
   }));
+  return [...base, { slug: "farmer-mithra" }];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -149,37 +150,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   </p>
                 </div>
               ))}
-            </div>
-          </div>
-        </RevealElement>
-
-        {/* RESULTS & METRICS */}
-        <RevealElement>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start border-t border-white/[0.08] pt-16">
-            <div className="md:col-span-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#F4F4F4]/40">
-                05 / VERIFICATION
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-light tracking-editorial text-[#F4F4F4] mt-2">
-                RESULT
-              </h2>
-            </div>
-            <div className="md:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {project.results.map((res, idx) => (
-                  <div
-                    key={idx}
-                    className="p-6 border border-white/[0.08] bg-[#141414] space-y-2"
-                  >
-                    <div className="text-2xl sm:text-3xl font-light text-[#F4F4F4]">
-                      {res.value}
-                    </div>
-                    <div className="text-xs font-mono text-[#F4F4F4]/50 uppercase tracking-wider">
-                      {res.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </RevealElement>

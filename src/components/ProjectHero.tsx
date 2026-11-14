@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Project } from "@/data/projects";
 import { Button } from "./Button";
-import { VisualArtifact } from "./VisualArtifact";
 import { RevealText } from "./RevealText";
 import { RevealElement } from "./RevealElement";
 
@@ -54,11 +54,21 @@ export function ProjectHero({ project }: ProjectHeroProps) {
 
       {/* Large Hero Visual */}
       <RevealElement delay={0.4} className="mt-12 sm:mt-16">
-        <div className="w-full aspect-[16/10] sm:aspect-[21/10] overflow-hidden rounded-xs border border-white/[0.1] bg-[#121212]">
-          <VisualArtifact
-            theme={project.visualTheme}
-            badgeText={`${project.number} ARCHITECTURAL SPEC // ${project.year}`}
-          />
+        <div className="w-full aspect-[16/10] sm:aspect-[21/10] overflow-hidden rounded-xs border border-white/[0.1] bg-[#121212] relative">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.name}
+              fill
+              priority
+              className="object-cover object-top"
+              sizes="100vw"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-[#F4F4F4]/20 text-sm font-mono uppercase tracking-widest">
+              {project.name}
+            </div>
+          )}
         </div>
       </RevealElement>
     </div>
