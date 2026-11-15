@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { RandomLetterSwap } from "@/components/ui/random-letter-swap";
 import { playClickSound } from "@/lib/sound";
-import { triggerBlobTransition } from "@/components/LiquidBlobTransition";
 
 const menuItems = [
   { label: "Index", href: "/#hero" },
@@ -100,7 +99,6 @@ export function Navbar() {
               href="/"
               onClick={() => {
                 playClickSound();
-                triggerBlobTransition();
               }}
               className="inline-flex items-center font-mono text-xs uppercase tracking-widest text-[#F4F4F4] hover:text-white transition-colors select-none focus:outline-hidden"
             >
@@ -118,7 +116,6 @@ export function Navbar() {
               href="/inquire"
               onClick={() => {
                 playClickSound();
-                triggerBlobTransition();
               }}
               className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-[#F4F4F4]/80 hover:text-white transition-colors select-none focus:outline-hidden"
             >
@@ -184,7 +181,6 @@ export function Navbar() {
                       onClick={() => {
                         playClickSound();
                         setIsMenuOpen(false);
-                        triggerBlobTransition();
                         if (item.label === "Index") {
                           const hero = document.getElementById("hero");
                           if (hero) {
