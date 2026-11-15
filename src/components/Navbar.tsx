@@ -13,7 +13,7 @@ const menuItems = [
   { label: "Skills", href: "/skills" },
   { label: "About", href: "/about" },
   { label: "Certificates", href: "/certificates" },
-  { label: "Inquire", href: "/inquire" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -111,17 +111,17 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* RIGHT: INQUIRE LINK */}
+          {/* RIGHT: CONTACT LINK */}
           <div className="flex-1 flex justify-end">
             <Link
-              href="/inquire"
+              href="/contact"
               onClick={() => {
                 playClickSound();
               }}
               className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-[#F4F4F4]/80 hover:text-white transition-colors select-none focus:outline-hidden"
             >
               <RandomLetterSwap
-                label="INQUIRE"
+                label="CONTACT"
                 staggerDuration={0.025}
                 transition={{ duration: 0.6, type: "spring", stiffness: 350, damping: 25 }}
               />

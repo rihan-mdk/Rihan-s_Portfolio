@@ -72,16 +72,16 @@ export default function HomePage() {
           <div className="flex flex-col gap-3 sm:gap-4">
             <motion.h1
               variants={heroItemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#F4F4F4] leading-[1.08] select-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-7xl font-light tracking-tight text-[#F4F4F4] leading-[1.08] select-none"
             >
-              HI , Rihan here
+              Hi, I'm Rihan.
             </motion.h1>
 
             <motion.p
               variants={heroItemVariants}
               className="text-xs sm:text-sm md:text-base font-mono tracking-[0.22em] text-[#F4F4F4]/70 uppercase font-light"
             >
-              WEB DEV • ARTIFICIAL INTELLIGENCE
+              AI & ML STUDENT  • WEB DEVELOPER
             </motion.p>
 
             <div className="mt-4 min-h-[1.4em] flex items-center overflow-hidden">
@@ -96,6 +96,13 @@ export default function HomePage() {
                 </TextRoll>
               </span>
             </div>
+
+            <motion.p
+              variants={heroItemVariants}
+              className="text-sm sm:text-base md:text-lg text-[#F4F4F4]/75 font-light leading-relaxed max-w-2xl mt-2 tracking-wide"
+            >
+              Exploring ideas through technology, designing meaningful experiences, and building things that make a difference.
+            </motion.p>
           </div>
 
           {/* CTAs */}
@@ -109,7 +116,7 @@ export default function HomePage() {
               className="px-8 py-4 font-mono text-xs uppercase tracking-widest font-medium"
               icon={<ArrowRight className="w-3.5 h-3.5" />}
             >
-              View Work
+              Explore My Work
             </NextjsShopButton>
             <NextjsShopButton
               href="/contact"
@@ -117,7 +124,7 @@ export default function HomePage() {
               className="px-8 py-4 font-mono text-xs uppercase tracking-widest font-medium"
               icon={<ArrowUpRight className="w-3.5 h-3.5" />}
             >
-              Inquire
+              Contact
             </NextjsShopButton>
           </motion.div>
         </motion.div>
