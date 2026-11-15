@@ -30,14 +30,14 @@ export default function ContactPage() {
   return (
     <main className="relative w-full h-screen min-h-[100svh] max-h-[100svh] overflow-hidden flex flex-col justify-between px-6 sm:px-10 md:px-14 pt-20 sm:pt-24 pb-4 sm:pb-6 bg-transparent text-[#F4F4F4] select-none">
       {/* =========================================================================
-          BIG BACKGROUND TEXT: "CONTACT ME" (Opacity 35-40%, behind glass card)
+          BIG BACKGROUND TEXT: "CONNECT" (Opacity 35-40%, behind glass card)
       ========================================================================= */}
       <div 
         className="pointer-events-none select-none absolute inset-0 flex items-center justify-center overflow-hidden z-0"
         aria-hidden="true"
       >
-        <span className="text-[14vw] sm:text-[12vw] font-light uppercase tracking-tighter text-[#F4F4F4] opacity-[0.38] whitespace-nowrap leading-none">
-          Contact Me
+        <span className="text-[16vw] sm:text-[14vw] font-light uppercase tracking-tighter text-[#F4F4F4] opacity-[0.38] whitespace-nowrap leading-none">
+          CONNECT
         </span>
       </div>
 
