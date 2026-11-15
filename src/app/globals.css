@@ -3,6 +3,7 @@
 @theme {
   --color-background: #0c0d11;
   --color-foreground: #F4F4F4;
+  --animate-shimmer: shimmer 1.6s linear infinite;
 
   --color-carbon: #101010;
   --color-carbon-muted: #171717;
@@ -97,6 +98,15 @@ body {
 /* =========================================================================
    Nextjsshop Pixel Dissolve Button (button01)
    ========================================================================= */
+
+/* =========================================================================
+   Shimmer Animation (used by CertificateGallery loading placeholder)
+   ========================================================================= */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .button01 {
   position: relative;
   display: inline-flex;
