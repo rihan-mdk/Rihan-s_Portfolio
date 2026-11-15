@@ -81,7 +81,7 @@ export default function HomePage() {
               variants={heroItemVariants}
               className="text-xs sm:text-sm md:text-base font-mono tracking-[0.22em] text-[#F4F4F4]/70 uppercase font-light"
             >
-              WEB DEV • COMMUNICATION • AI/ML
+              WEB DEV • ARTIFICIAL INTELLIGENCE
             </motion.p>
 
             <div className="mt-4 min-h-[1.4em] flex items-center overflow-hidden">
