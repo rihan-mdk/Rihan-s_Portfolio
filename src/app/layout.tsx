@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { LiquidMetalBackground } from "@/components/LiquidMetalBackground";
+import GreetingPreloader from "@/components/ui/components-preloaders-greetings";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,9 +66,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-transparent text-[#F4F4F4] relative selection:bg-white/20 selection:text-white">
+        <GreetingPreloader />
         <LiquidMetalBackground />
         <Navbar />
-        <div className="flex-1 w-full flex flex-col relative z-10">{children}</div>
+        <div id="main-content" className="flex-1 w-full flex flex-col relative z-10">{children}</div>
       </body>
     </html>
   );

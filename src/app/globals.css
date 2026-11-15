@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  --color-background: #0c0d11;
+  --color-foreground: #F4F4F4;
+
   --color-carbon: #101010;
   --color-carbon-muted: #171717;
   --color-carbon-surface: #131313;

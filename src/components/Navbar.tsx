@@ -68,6 +68,7 @@ export function Navbar() {
           TOP MINIMAL HEADER (Menu | Portfolio | Connect)
       ========================================================================= */}
       <header
+        id="navbar"
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
             ? "bg-[#101010]/70 backdrop-blur-md border-b border-white/[0.06] py-4"
