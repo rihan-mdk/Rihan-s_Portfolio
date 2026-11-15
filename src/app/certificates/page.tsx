@@ -7,35 +7,35 @@ import { RevealElement } from "@/components/RevealElement";
 const certificates = [
   {
     src: "/images/1.jpeg",
-    alt: "Machine Learning Specialization — DeepLearning.AI · Stanford Online · 2024",
+    alt: "Building Own Generative AI Models",
   },
   {
     src: "/images/2.jpeg",
-    alt: "Deep Learning Specialization — Coursera · DeepLearning.AI · 2024",
+    alt: "Guide to Vibe Coding",
   },
   {
     src: "/images/3.jpeg",
-    alt: "Python for Data Science & AI — IBM · Coursera · 2023",
+    alt: "Be10x — Presentation & Web Development",
   },
   {
     src: "/images/4.jpeg",
-    alt: "Full Stack Web Development — Udemy · Complete Bootcamp · 2023",
+    alt: "Startup Pitch — Soul Nest",
   },
   {
     src: "/images/5.jpeg",
-    alt: "TensorFlow Developer Certificate — Google · TensorFlow · 2024",
+    alt: "VLSI Skill Development",
   },
   {
     src: "/images/6.jpeg",
-    alt: "Computer Vision & Image Processing — Coursera · 2024",
+    alt: "1st Rank in Academics",
   },
   {
     src: "/images/7.jpeg",
-    alt: "Natural Language Processing — Hugging Face · DeepLearning.AI · 2025",
+    alt: "24-Hour National Level Hackathon",
   },
   {
     src: "/images/8.jpeg",
-    alt: "Cloud Computing Fundamentals — AWS · 2025",
+    alt: "24-Hour National Level Hackathon",
   },
 ];
 
