@@ -31,11 +31,11 @@ const certificates = [
   },
   {
     src: "/images/7.jpeg",
-    alt: "24-Hour National Level Hackathon",
+    alt: "1st Rank in Academics",
   },
   {
     src: "/images/8.jpeg",
-    alt: "1st Rank in Academics",
+    alt: "24-Hour National Level Hackathon",
   },
 ];
 
